@@ -1,0 +1,85 @@
+==================================================
+RAPORT 1 (k-średnie, Euklidesowa, k=3, 10 iteracji)
+==================================================
+
+--- STAN PO 4 ITERACJACH ---
+Grupa 1:
+  Środek:       (x1 = 0,6640, x2 = -0,8468)
+  Liczba próbek: 38
+  Parametr x1:   min = -0,6295, max = 1,3375
+  Parametr x2:   min = -1,5564, max = 0,3286
+Grupa 2:
+  Środek:       (x1 = -0,0066, x2 = 1,1980)
+  Liczba próbek: 35
+  Parametr x1:   min = -1,3866, max = 1,1587
+  Parametr x2:   min = 0,4486, max = 1,9929
+Grupa 3:
+  Środek:       (x1 = -1,4776, x2 = -0,2886)
+  Liczba próbek: 28
+  Parametr x1:   min = -1,7790, max = -0,8152
+  Parametr x2:   min = -1,3649, max = 1,0313
+
+--- STAN PO 10 ITERACJACH ---
+Grupa 1:
+  Środek:       (x1 = 0,6640, x2 = -0,8468)
+  Liczba próbek: 38
+  Parametr x1:   min = -0,6295, max = 1,3375
+  Parametr x2:   min = -1,5564, max = 0,3286
+Grupa 2:
+  Środek:       (x1 = -0,0066, x2 = 1,1980)
+  Liczba próbek: 35
+  Parametr x1:   min = -1,3866, max = 1,1587
+  Parametr x2:   min = 0,4486, max = 1,9929
+Grupa 3:
+  Środek:       (x1 = -1,4776, x2 = -0,2886)
+  Liczba próbek: 28
+  Parametr x1:   min = -1,7790, max = -0,8152
+  Parametr x2:   min = -1,3649, max = 1,0313
+
+==================================================
+RAPORT 2 (k-średnie, metryka |x1_A - x1_B|, k=4, 10 iteracji)
+==================================================
+
+--- STAN PO 4 ITERACJACH ---
+Grupa 1:
+  Środek:       (x1 = 1,1725, x2 = -0,1290)
+  Liczba próbek: 22
+  Parametr x1:   min = 0,9918, max = 1,3375
+  Parametr x2:   min = -1,0194, max = 0,6502
+Grupa 2:
+  Środek:       (x1 = -0,1850, x2 = 0,0730)
+  Liczba próbek: 21
+  Parametr x1:   min = -0,6295, max = 0,2311
+  Parametr x2:   min = -1,5564, max = 1,9929
+Grupa 3:
+  Środek:       (x1 = 0,6256, x2 = -0,1271)
+  Liczba próbek: 21
+  Parametr x1:   min = 0,2684, max = 0,9301
+  Parametr x2:   min = -1,3957, max = 1,0724
+Grupa 4:
+  Środek:       (x1 = -1,3898, x2 = 0,1525)
+  Liczba próbek: 37
+  Parametr x1:   min = -1,7790, max = -0,8084
+  Parametr x2:   min = -1,3649, max = 1,8031
+
+--- STAN PO 10 ITERACJACH ---
+Grupa 1:
+  Środek:       (x1 = 1,0853, x2 = -0,0747)
+  Liczba próbek: 30
+  Parametr x1:   min = 0,7825, max = 1,3375
+  Parametr x2:   min = -1,1675, max = 0,8573
+Grupa 2:
+  Środek:       (x1 = -0,4780, x2 = 0,0472)
+  Liczba próbek: 19
+  Parametr x1:   min = -0,8967, max = -0,0566
+  Parametr x2:   min = -1,5564, max = 1,9929
+Grupa 3:
+  Środek:       (x1 = 0,3675, x2 = -0,0092)
+  Liczba próbek: 20
+  Parametr x1:   min = 0,0322, max = 0,6782
+  Parametr x2:   min = -1,4508, max = 1,9473
+Grupa 4:
+  Środek:       (x1 = -1,4750, x2 = 0,0999)
+  Liczba próbek: 32
+  Parametr x1:   min = -1,7790, max = -0,9520
+  Parametr x2:   min = -1,3021, max = 1,6521
