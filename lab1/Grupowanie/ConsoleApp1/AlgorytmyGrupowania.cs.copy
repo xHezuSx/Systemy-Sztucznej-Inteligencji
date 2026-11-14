@@ -1,0 +1,411 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+
+namespace SSI_Lab1_Grupowanie
+{
+    // Klasa przechowujaca stan pojedynczej iteracji (zeby mozna bylo rysowac wykres krok po kroku)
+    public class StanIteracji
+    {
+        public int NumerIteracji;
+        public double[] SrodkiX1;
+        public double[] SrodkiX2;
+        public int[] PrzypisanaGrupa;
+        public double[,] U; // Tablica przynaleznosci dla algorytmu FCM
+        public string TekstRaportu;
+    }
+
+    public class AlgorytmyGrupowania
+    {
+        public double[] probkiX1;
+        public double[] probkiX2;
+        public int M; // Liczba probek (w PDF oznaczone jako M)
+
+        // ---------------------------------------------------------
+        // WCZYTYWANIE DANYCH Z PLIKU CSV
+        // ---------------------------------------------------------
+        public bool WczytajDane(string sciezkaCsv)
+        {
+            if (!File.Exists(sciezkaCsv)) return false;
+
+            string[] wszystkieLinie = File.ReadAllLines(sciezkaCsv);
+            List<double> listaX1 = new List<double>();
+            List<double> listaX2 = new List<double>();
+
+            for (int i = 0; i < wszystkieLinie.Length; i++)
+            {
+                string linia = wszystkieLinie[i].Trim();
+                if (linia.Length == 0) continue;
+
+                // Rozdzielamy po przecinku lub sredniku
+                string[] czesci = linia.Split(new char[] { ',', ';' });
+
+                // CultureInfo.InvariantCulture dba o to, by kropka "." byla separatorem dziesietnym
+                double x1 = double.Parse(czesci[0].Trim(), CultureInfo.InvariantCulture);
+                double x2 = double.Parse(czesci[1].Trim(), CultureInfo.InvariantCulture);
+
+                listaX1.Add(x1);
+                listaX2.Add(x2);
+            }
+
+            M = listaX1.Count;
+            probkiX1 = listaX1.ToArray();
+            probkiX2 = listaX2.ToArray();
+            return true;
+        }
+
+        // ---------------------------------------------------------
+        // MIARY ODLEGLOSCI Z INSTRUKCJI PDF
+        // ---------------------------------------------------------
+        // 0: Euklidesowa, 1: Tylko parametr X1 (Zadanie 2), 2: Manhattan, 3: Czebyszewa, 4: Minkowskiego
+        public double PoliczOdleglosc(double a1, double a2, double b1, double b2, int typMetryki, double mink = 3.0)
+        {
+            double dx = Math.Abs(a1 - b1);
+            double dy = Math.Abs(a2 - b2);
+
+            if (typMetryki == 1)
+            {
+                // Zadanie 2: metryka odleglosci = |pktA_1 - pktB_1| (ignorujemy x2)
+                return dx;
+            }
+            else if (typMetryki == 2)
+            {
+                // Manhattan (taksowkowa)
+                return dx + dy;
+            }
+            else if (typMetryki == 3)
+            {
+                // Czebyszewa
+                return Math.Max(dx, dy);
+            }
+            else if (typMetryki == 4)
+            {
+                // Minkowskiego
+                return Math.Pow(Math.Pow(dx, mink) + Math.Pow(dy, mink), 1.0 / mink);
+            }
+            else
+            {
+                // Domyslnie Zadanie 1: metryka euklidesowa
+                return Math.Sqrt(dx * dx + dy * dy);
+            }
+        }
+
+        // ---------------------------------------------------------
+        // ALGORYTM K-SREDNICH (ZADANIE 1 i 2)
+        // ---------------------------------------------------------
+        public List<StanIteracji> WykonajKMeans(int m, int iters, int typMetryki, int seed = 123)
+        {
+            List<StanIteracji> historia = new List<StanIteracji>();
+            Random los = new Random(seed); // stale ziarno, zeby wyniki byly powtarzalne
+
+            // Tablice przechowujace wspolrzedne srodkow grup (V)
+            double[] srodkiX1 = new double[m];
+            double[] srodkiX2 = new double[m];
+
+            // Krok 1 z PDF: losujemy m roznych probek i ustawiamy jako srodki poczatkowe
+            List<int> wylosowaneIndeksy = new List<int>();
+            for (int j = 0; j < m; j++)
+            {
+                int losowyIndeks = los.Next(0, M);
+                while (wylosowaneIndeksy.Contains(losowyIndeks) && wylosowaneIndeksy.Count < M)
+                {
+                    losowyIndeks = los.Next(0, M);
+                }
+                wylosowaneIndeksy.Add(losowyIndeks);
+
+                srodkiX1[j] = probkiX1[losowyIndeks];
+                srodkiX2[j] = probkiX2[losowyIndeks];
+            }
+
+            int[] przypisanaGrupa = new int[M];
+
+            // Zapisujemy stan 0 (przed petla glowna)
+            for (int s = 0; s < M; s++)
+            {
+                double minOdl = double.MaxValue;
+                int najlepsza = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    double odl = PoliczOdleglosc(probkiX1[s], probkiX2[s], srodkiX1[j], srodkiX2[j], typMetryki);
+                    if (odl < minOdl) { minOdl = odl; najlepsza = j; }
+                }
+                przypisanaGrupa[s] = najlepsza;
+            }
+            historia.Add(ZbudujStanKMeans(0, srodkiX1, srodkiX2, przypisanaGrupa, m));
+
+            // Krok 2 z PDF: glowna petla iteracji
+            for (int iteracja = 1; iteracja <= iters; iteracja++)
+            {
+                // 2.1 Dla kazdej probki wyznaczamy najblizszy srodek
+                for (int s = 0; s < M; s++)
+                {
+                    double minOdleglosc = double.MaxValue;
+                    int najlepszaGrupa = 0;
+
+                    for (int j = 0; j < m; j++)
+                    {
+                        double odl = PoliczOdleglosc(probkiX1[s], probkiX2[s], srodkiX1[j], srodkiX2[j], typMetryki);
+                        if (odl < minOdleglosc)
+                        {
+                            minOdleglosc = odl;
+                            najlepszaGrupa = j;
+                        }
+                    }
+                    przypisanaGrupa[s] = najlepszaGrupa;
+                }
+
+                // 2.2 Wyznaczamy nowe srodki grup jako srednie arytmetyczne probek
+                for (int j = 0; j < m; j++)
+                {
+                    double sumaX1 = 0.0;
+                    double sumaX2 = 0.0;
+                    int licznik = 0;
+
+                    for (int s = 0; s < M; s++)
+                    {
+                        if (przypisanaGrupa[s] == j)
+                        {
+                            sumaX1 += probkiX1[s];
+                            sumaX2 += probkiX2[s];
+                            licznik++;
+                        }
+                    }
+
+                    // 2.2.2 Jesli zbior X_gr nie jest pusty, liczymy nowa srednia
+                    if (licznik > 0)
+                    {
+                        srodkiX1[j] = sumaX1 / licznik;
+                        srodkiX2[j] = sumaX2 / licznik;
+                    }
+                }
+
+                historia.Add(ZbudujStanKMeans(iteracja, srodkiX1, srodkiX2, przypisanaGrupa, m));
+            }
+
+            return historia;
+        }
+
+        private StanIteracji ZbudujStanKMeans(int iteracja, double[] srodkiX1, double[] srodkiX2, int[] przypisanaGrupa, int m)
+        {
+            StanIteracji stan = new StanIteracji();
+            stan.NumerIteracji = iteracja;
+            stan.SrodkiX1 = (double[])srodkiX1.Clone();
+            stan.SrodkiX2 = (double[])srodkiX2.Clone();
+            stan.PrzypisanaGrupa = (int[])przypisanaGrupa.Clone();
+
+            StringWriter raport = new StringWriter();
+            raport.WriteLine($"=== K-SREDNIE: STAN PO {iteracja} ITERACJACH ===");
+
+            for (int j = 0; j < m; j++)
+            {
+                int liczbaPunktow = 0;
+                double minX1 = double.MaxValue, maxX1 = double.MinValue;
+                double minX2 = double.MaxValue, maxX2 = double.MinValue;
+
+                for (int s = 0; s < M; s++)
+                {
+                    if (przypisanaGrupa[s] == j)
+                    {
+                        liczbaPunktow++;
+                        if (probkiX1[s] < minX1) minX1 = probkiX1[s];
+                        if (probkiX1[s] > maxX1) maxX1 = probkiX1[s];
+                        if (probkiX2[s] < minX2) minX2 = probkiX2[s];
+                        if (probkiX2[s] > maxX2) maxX2 = probkiX2[s];
+                    }
+                }
+
+                raport.WriteLine($"\nGrupa {j + 1}:");
+                raport.WriteLine($"  Srodek grupy:       (x1 = {srodkiX1[j]:F4}, x2 = {srodkiX2[j]:F4})");
+                raport.WriteLine($"  Liczba probek:      {liczbaPunktow}");
+                if (liczbaPunktow > 0)
+                {
+                    raport.WriteLine($"  Wartosci param. x1: min = {minX1:F4}, max = {maxX1:F4}");
+                    raport.WriteLine($"  Wartosci param. x2: min = {minX2:F4}, max = {maxX2:F4}");
+                }
+            }
+
+            stan.TekstRaportu = raport.ToString();
+            return stan;
+        }
+
+        // ---------------------------------------------------------
+        // ALGORYTM FUZZY C-MEANS (FCM - ZADANIE 3 NA BDB)
+        // ---------------------------------------------------------
+        public List<StanIteracji> WykonajFCM(int m, int iters, double fcm_m, int typMetryki, int seed = 123)
+        {
+            List<StanIteracji> historia = new List<StanIteracji>();
+            Random los = new Random(seed);
+
+            // 1.1 i 1.2 Stworzenie tablic U, D (m x M) oraz V (srodki)
+            double[,] U = new double[m, M];
+            double[,] D = new double[m, M];
+            double[] srodkiX1 = new double[m];
+            double[] srodkiX2 = new double[m];
+
+            // Krok 1.3 z PDF: wypelnienie D losowymi wartosciami z przedzialu (0.1, 1.1)
+            for (int j = 0; j < m; j++)
+            {
+                for (int s = 0; s < M; s++)
+                {
+                    D[j, s] = 0.1 + (los.NextDouble() * 1.0);
+                }
+            }
+
+            // Krok 1.4: wyliczenie poczatkowego U
+            PrzeliczPrzynaleznosciU(U, D, m, M, fcm_m);
+
+            // Krok 1.5: wyliczenie poczatkowych srodkow V
+            PrzeliczSrodkiFCM(srodkiX1, srodkiX2, U, m, M, fcm_m);
+
+            // Zapisujemy stan 0 (przed petla glowna, jak na rysunku w PDF str. 5)
+            historia.Add(ZbudujStanFCM(0, srodkiX1, srodkiX2, U, m));
+
+            // Krok 2: Glowna petla iteracji FCM
+            for (int iteracja = 1; iteracja <= iters; iteracja++)
+            {
+                // 2.1 Obliczenie kwadratow odleglosci: D_j,s = d(x_s, v_j)^2
+                for (int j = 0; j < m; j++)
+                {
+                    for (int s = 0; s < M; s++)
+                    {
+                        double d = PoliczOdleglosc(probkiX1[s], probkiX2[s], srodkiX1[j], srodkiX2[j], typMetryki);
+                        double d2 = d * d;
+
+                        // 2.2 Zabezpieczenie przed dzieleniem przez zero: jesli < 1e-5 to wstaw 1e-5
+                        if (d2 < 0.00001)
+                        {
+                            d2 = 0.00001;
+                        }
+                        D[j, s] = d2;
+                    }
+                }
+
+                // 2.3 Wyliczenie stopni przynaleznosci U
+                PrzeliczPrzynaleznosciU(U, D, m, M, fcm_m);
+
+                // 2.4 Sprawdzenie czy U nie zawiera wartosci nieoznaczonych (NaN)
+                for (int j = 0; j < m; j++)
+                {
+                    for (int s = 0; s < M; s++)
+                    {
+                        if (double.IsNaN(U[j, s]) || double.IsInfinity(U[j, s]))
+                        {
+                            throw new Exception("Wykryto wartosci nieoznaczone (NaN) w tablicy U!");
+                        }
+                    }
+                }
+
+                // 2.5 Obliczenie nowych polozen srodkow V
+                PrzeliczSrodkiFCM(srodkiX1, srodkiX2, U, m, M, fcm_m);
+
+                historia.Add(ZbudujStanFCM(iteracja, srodkiX1, srodkiX2, U, m));
+            }
+
+            return historia;
+        }
+
+        private StanIteracji ZbudujStanFCM(int iteracja, double[] srodkiX1, double[] srodkiX2, double[,] U, int m)
+        {
+            StanIteracji stan = new StanIteracji();
+            stan.NumerIteracji = iteracja;
+            stan.SrodkiX1 = (double[])srodkiX1.Clone();
+            stan.SrodkiX2 = (double[])srodkiX2.Clone();
+            stan.U = (double[,])U.Clone();
+            stan.PrzypisanaGrupa = new int[M];
+
+            // Na potrzeby wykresu wyznaczamy dominujaca grupe (najwyzsze U)
+            for (int s = 0; s < M; s++)
+            {
+                double maxU = -1.0;
+                int bestJ = 0;
+                for (int j = 0; j < m; j++)
+                {
+                    if (U[j, s] > maxU)
+                    {
+                        maxU = U[j, s];
+                        bestJ = j;
+                    }
+                }
+                stan.PrzypisanaGrupa[s] = bestJ;
+            }
+
+            StringWriter raport = new StringWriter();
+            raport.WriteLine($"=== FCM: STAN PO {iteracja} ITERACJACH ===");
+
+            for (int j = 0; j < m; j++)
+            {
+                int liczbaPrzynaleznychPowyzej06 = 0;
+                double minX1 = double.MaxValue, maxX1 = double.MinValue;
+                double minX2 = double.MaxValue, maxX2 = double.MinValue;
+
+                for (int s = 0; s < M; s++)
+                {
+                    // Wytyczna z PDF: bierzemy probki o przynaleznosci U > 0.6
+                    if (U[j, s] > 0.6)
+                    {
+                        liczbaPrzynaleznychPowyzej06++;
+                        if (probkiX1[s] < minX1) minX1 = probkiX1[s];
+                        if (probkiX1[s] > maxX1) maxX1 = probkiX1[s];
+                        if (probkiX2[s] < minX2) minX2 = probkiX2[s];
+                        if (probkiX2[s] > maxX2) maxX2 = probkiX2[s];
+                    }
+                }
+
+                raport.WriteLine($"\nGrupa {j + 1}:");
+                raport.WriteLine($"  Srodek grupy:       (x1 = {srodkiX1[j]:F4}, x2 = {srodkiX2[j]:F4})");
+                raport.WriteLine($"  Probki z U > 0.6:   {liczbaPrzynaleznychPowyzej06}");
+                if (liczbaPrzynaleznychPowyzej06 > 0)
+                {
+                    raport.WriteLine($"  Wartosci param. x1: min = {minX1:F4}, max = {maxX1:F4}");
+                    raport.WriteLine($"  Wartosci param. x2: min = {minX2:F4}, max = {maxX2:F4}");
+                }
+            }
+
+            stan.TekstRaportu = raport.ToString();
+            return stan;
+        }
+
+        // Pomocnicze przeliczanie U ze wzoru z PDF: D^(1/(1-fcm_m)) / Suma
+        private void PrzeliczPrzynaleznosciU(double[,] U, double[,] D, int m, int M, double fcm_m)
+        {
+            double wykladnik = 1.0 / (1.0 - fcm_m);
+
+            for (int s = 0; s < M; s++)
+            {
+                double sumaMianownika = 0.0;
+                for (int j = 0; j < m; j++)
+                {
+                    sumaMianownika += Math.Pow(D[j, s], wykladnik);
+                }
+
+                for (int j = 0; j < m; j++)
+                {
+                    U[j, s] = Math.Pow(D[j, s], wykladnik) / sumaMianownika;
+                }
+            }
+        }
+
+        // Pomocnicze przeliczanie srodkow V ze wzoru z PDF
+        private void PrzeliczSrodkiFCM(double[] srodkiX1, double[] srodkiX2, double[,] U, int m, int M, double fcm_m)
+        {
+            for (int j = 0; j < m; j++)
+            {
+                double licznikX1 = 0.0;
+                double licznikX2 = 0.0;
+                double mianownik = 0.0;
+
+                for (int s = 0; s < M; s++)
+                {
+                    double waga = Math.Pow(U[j, s], fcm_m);
+                    licznikX1 += waga * probkiX1[s];
+                    licznikX2 += waga * probkiX2[s];
+                    mianownik += waga;
+                }
+
+                srodkiX1[j] = licznikX1 / mianownik;
+                srodkiX2[j] = licznikX2 / mianownik;
+            }
+        }
+    }
+}
