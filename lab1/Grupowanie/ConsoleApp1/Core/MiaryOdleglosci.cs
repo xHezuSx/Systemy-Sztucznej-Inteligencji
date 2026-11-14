@@ -35,6 +35,5 @@ namespace SSI_Lab1_Grupowanie.Core
 
             }
         }
-
     }
 }
