@@ -8,7 +8,7 @@ namespace SSI_Lab2_Ewolucyjne
         public double X2;
         public double Ocena;
 
-        // pola doalgorytmu PSO:
+        // pola doalgorytmu roju (PSO) prędkość i ptimum
         public double Vx1;
         public double Vx2;
         public double NajlepszeX1;
