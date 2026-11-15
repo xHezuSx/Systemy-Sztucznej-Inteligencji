@@ -1,0 +1,16 @@
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\bin\Debug\net10.0\lab2.exe
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\bin\Debug\net10.0\lab2.deps.json
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\bin\Debug\net10.0\lab2.runtimeconfig.json
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\bin\Debug\net10.0\lab2.dll
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\bin\Debug\net10.0\lab2.pdb
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.AssemblyInfoInputs.cache
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.AssemblyInfo.cs
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.sourcelink.json
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.dll
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\refint\lab2.dll
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.pdb
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.genruntimeconfig.cache
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\ref\lab2.dll
+C:\Users\User\Desktop\Systemy-Sztucznej-Inteligencji\lab2\lab2\obj\Debug\net10.0\lab2.csproj.Up2Date
