@@ -1,1 +1,16 @@
-﻿Console.WriteLine("Hello, World!");
+using System;
+using System.Windows.Forms;
+
+namespace SSI_Lab2_Ewolucyjne
+{
+    static class Program
+    {
+        [STAThread]
+        static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            Application.Run(new OknoGlowne());
+        }
+    }
+}
