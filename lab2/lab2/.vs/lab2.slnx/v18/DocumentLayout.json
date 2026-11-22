@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\core\\algorytm1plus1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:core\\algorytm1plus1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\core\\staniteracji.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:core\\staniteracji.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\core\\osobnik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:core\\osobnik.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\oknoglowne.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:oknoglowne.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\core\\funkcjeprzystosowania.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:core\\funkcjeprzystosowania.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|c:\\users\\user\\desktop\\systemy-sztucznej-inteligencji\\lab2\\lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5BEEBC26-9B15-42B5-8799-BC475D3D0D05}|lab2.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
@@ -19,14 +39,79 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Algorytm1Plus1.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\Algorytm1Plus1.cs",
+              "RelativeDocumentMoniker": "Core\\Algorytm1Plus1.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\Algorytm1Plus1.cs",
+              "RelativeToolTip": "Core\\Algorytm1Plus1.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T12:28:17.925Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "StanIteracji.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\StanIteracji.cs",
+              "RelativeDocumentMoniker": "Core\\StanIteracji.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\StanIteracji.cs",
+              "RelativeToolTip": "Core\\StanIteracji.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T12:24:10.594Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Osobnik.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\Osobnik.cs",
+              "RelativeDocumentMoniker": "Core\\Osobnik.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\Osobnik.cs",
+              "RelativeToolTip": "Core\\Osobnik.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAwwC8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T12:12:15.456Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FunkcjePrzystosowania.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\FunkcjePrzystosowania.cs",
+              "RelativeDocumentMoniker": "Core\\FunkcjePrzystosowania.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Core\\FunkcjePrzystosowania.cs",
+              "RelativeToolTip": "Core\\FunkcjePrzystosowania.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T12:10:08.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "OknoGlowne.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\OknoGlowne.cs",
+              "RelativeDocumentMoniker": "OknoGlowne.cs",
+              "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\OknoGlowne.cs",
+              "RelativeToolTip": "OknoGlowne.cs",
+              "ViewState": "AgIAAFYCAAAAAAAAAAAswGcCAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-11-15T11:58:33.283Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\User\\Desktop\\Systemy-Sztucznej-Inteligencji\\lab2\\lab2\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-11-15T11:34:48.539Z",
+              "WhenOpened": "2026-11-15T11:55:58.578Z",
               "EditorCaption": ""
             }
           ]

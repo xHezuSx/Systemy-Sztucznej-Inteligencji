@@ -9,8 +9,8 @@ namespace SSI_Lab2_Ewolucyjne.Core
         public List<StanIteracji> Wykonaj(double rozrzutPoczatkowy, double wspPrzyrostu, int lIteracji, double startMin =0.0, double startMax=100.0, int seed = 123)
         {
             List<StanIteracji> historia = new List<StanIteracji>();
-
             Random los = new Random(seed);
+
             double zakresMin = 0.0;
             double zakresMax = 100.0;
             double rozrzut = rozrzutPoczatkowy;
@@ -22,11 +22,28 @@ namespace SSI_Lab2_Ewolucyjne.Core
 
             for (int iter = 1; iter<= lIteracji; iter++)
             {
-                double przesuniecie = (los.NextDouble()*2.0-1.0) * rozrzut
+                double przesuniecie = (los.NextDouble() * 2.0 - 1.0) * rozrzut;
+                double xPot = x + przesuniecie;
+                xPot = FunkcjePrzystosowania.PrzytnijDoZakresu(xPot, zakresMin, zakresMax);
+                double yPot = FunkcjePrzystosowania.Oblicz1D(xPot);
+
+                if (yPot >= y)
+                {
+                    x = xPot;
+                    y = yPot;
+                    rozrzut += wspPrzyrostu;
+                } else
+                {
+                    rozrzut /= wspPrzyrostu;
+                }
+
+                historia.Add(ZbudujStan(iter, x,y,xPot,yPot, rozrzut));
             }
 
             return historia;
         }
+
+
 
         private StanIteracji ZbudujStan(int iter, double x, double y, double xPot, double yPot, double rozrzut)
         {
