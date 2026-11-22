@@ -6,7 +6,7 @@ namespace SSI_Lab2_Ewolucyjne.Core
 {
     public class AlgorytmPSO
     {
-        public List<StanIteracji> Wykonaj(int N, double rIteracji, double rLok, int iteracjeLiczba, int seed = 123)
+        public List<StanIteracji> Wykonaj(int N, double rIteracji, double rGlob, double rLok, int iteracjeLiczba, int seed = 123)
         {
             List<StanIteracji> historia = new List<StanIteracji>();
 

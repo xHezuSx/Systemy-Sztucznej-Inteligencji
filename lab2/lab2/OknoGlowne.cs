@@ -507,8 +507,8 @@ namespace SSI_Lab2_Ewolucyjne
             // Punkt kandydata x_pot (szare kolko)
             if (stan.NumerIteracji > 0)
             {
-                float kpx = NaX(stan.XPot);
-                float kpy = NaY(stan.YPot);
+                float kpx = NaX(stan.Xpot);
+                float kpy = NaY(stan.Ypot);
                 g.DrawEllipse(new Pen(Color.DarkOrange, 2f), kpx - 5, kpy - 5, 10, 10);
             }
 
