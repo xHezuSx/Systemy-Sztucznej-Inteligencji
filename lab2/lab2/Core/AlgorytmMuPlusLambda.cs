@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection.Metadata.Ecma335;
 using SSI_Lab2_Ewolucyjne.Core;
 
-namespace SSI_Lab2_Ewolucyjne.core
+namespace SSI_Lab2_Ewolucyjne.Core
 {
     public class AlgorytmMuPlusLambda
     {
