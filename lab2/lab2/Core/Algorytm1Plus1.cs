@@ -31,7 +31,7 @@ namespace SSI_Lab2_Ewolucyjne.Core
                 {
                     x = xPot;
                     y = yPot;
-                    rozrzut += wspPrzyrostu;
+                    rozrzut *= wspPrzyrostu;
                 } else
                 {
                     rozrzut /= wspPrzyrostu;
@@ -52,8 +52,8 @@ namespace SSI_Lab2_Ewolucyjne.Core
                 NumerIteracji = iter,
                 X = x,
                 Y = y,
-                Xpot = xPot,
-                Ypot = yPot,
+                XPot = xPot,
+                YPot = yPot,
                 Rozrzut = rozrzut
             };
             

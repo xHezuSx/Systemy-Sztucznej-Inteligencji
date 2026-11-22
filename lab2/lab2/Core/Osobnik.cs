@@ -26,8 +26,8 @@ namespace SSI_Lab2_Ewolucyjne
             NajlepszeX1 = x1;
             NajlepszeX2 = x2;
 
-            Vx1 = x1;
-            Vx2 = x2;
+            Vx1 = 0.0;
+            Vx2 = 0.0;
         }
 
         public Osobnik Klonuj()

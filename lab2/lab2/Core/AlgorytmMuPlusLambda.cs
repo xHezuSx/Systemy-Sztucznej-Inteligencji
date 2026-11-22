@@ -41,8 +41,8 @@ namespace SSI_Lab2_Ewolucyjne.Core
                 {
                     Osobnik zwyciezcaTurnieju = WybierzTurniejowo(pulaRodzicielska, turniejRozmiar, los);
 
-                    double dx1 = (los.NextDouble() * 2.0 - 1.0 * mutacjaPoziom);
-                    double dx2 = (los.NextDouble() * 2.0 - 1.0 * mutacjaPoziom);
+                    double dx1 = (los.NextDouble() * 2.0 - 1.0) * mutacjaPoziom;
+                    double dx2 = (los.NextDouble() * 2.0 - 1.0) * mutacjaPoziom;
 
                     double noweX1 = FunkcjePrzystosowania.PrzytnijDoZakresu(zwyciezcaTurnieju.X1 + dx1, xMin, xMax);
                     double noweX2 = FunkcjePrzystosowania.PrzytnijDoZakresu(zwyciezcaTurnieju.X1 + dx1, xMin, xMax);

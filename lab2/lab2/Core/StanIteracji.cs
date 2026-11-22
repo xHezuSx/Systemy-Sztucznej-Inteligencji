@@ -10,8 +10,8 @@ namespace SSI_Lab2_Ewolucyjne.Core
         // 1+1
         public double X;
         public double Y;
-        public double Xpot;
-        public double Ypot;
+        public double XPot;
+        public double YPot;
         public double Rozrzut;
 
         // PSO

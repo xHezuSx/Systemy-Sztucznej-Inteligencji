@@ -58,6 +58,10 @@ namespace SSI_Lab2_Ewolucyjne.Core
                     roj[j].Vx1 = roj[j].Vx1 * rIteracji + (xGlob.X1 - roj[j].X1) * rndGlob + (roj[j].NajlepszeX1 - roj[j].X1) * rLok * rndLok;
                     roj[j].Vx2 = roj[j].Vx2 * rIteracji + (xGlob.X2 - roj[j].X2) * rndGlob + (roj[j].NajlepszeX2 - roj[j].X2) * rLok * rndLok;
 
+                    roj[j].X1 = FunkcjePrzystosowania.PrzytnijDoZakresu(roj[j].X1 + roj[j].Vx1, xMin, xMax);
+                    roj[j].X2 = FunkcjePrzystosowania.PrzytnijDoZakresu(roj[j].X2 + roj[j].Vx2, xMin, xMax);
+                    roj[j].Ocena = FunkcjePrzystosowania.Oblicz2D(roj[j].X1, roj[j].X2);
+
                     if (roj[j].Ocena > xGlob.Ocena)
                     {
                         xGlob = roj[j].Klonuj();
